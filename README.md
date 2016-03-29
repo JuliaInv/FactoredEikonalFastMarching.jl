@@ -19,7 +19,7 @@ Pkg.clone("https://github.com/JuliaInv/FactoredEikonalFastMarching.jl","Factored
 Pkg.test("FactoredEikonalFastMarching")
 ```
 
-# Usage
+# Examples
 
 Under "examples/runExperiments.jl" you can find the experiments that were shown in the paper above. 
 
