@@ -1,7 +1,7 @@
 # FactoredEikonalFastMarching.jl
 Julia Package for solving the factored eikonal equation of a regular rectangular mesh using the fast marching algorithm.
 
-Based on the following paper (please cite if you are using the package.)
+Based on the following paper (please cite if you are using the package):
 
 Eran Treister and Eldad Haber, A fast marching algorithm for the factored eikonal equation, Under review.
 
