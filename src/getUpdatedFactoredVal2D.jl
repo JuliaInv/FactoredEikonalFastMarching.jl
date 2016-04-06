@@ -31,9 +31,6 @@ in_sqrt = b*b - a*c;
 if (in_sqrt > 0.0)
     T_loc = (-b + sqrt(in_sqrt))/(a);
 else
-	# if in_sqrt < 0.0
-		# warn("Eikonal: Negative value found in sqrt: ",in_sqrt," Solution probably has an error, because medium slowness is probably not smooth enough.");
-	# end
     T_loc = 0.0;
 end
 return T_loc;
