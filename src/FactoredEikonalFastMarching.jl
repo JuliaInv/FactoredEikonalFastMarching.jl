@@ -10,6 +10,7 @@ using jInv.Mesh
 EikIdxType  = Int32
 EikTtype	= Float64 # here we choose the floating type for the calculation
 
+const imposeMonotonicity = false;
 
 """
 	type EikonalParam

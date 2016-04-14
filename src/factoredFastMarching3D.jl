@@ -24,12 +24,6 @@ OP       = pEik.OP;
 OP[:] 	 = 0;
 
 
-
-
-
-
-# Done = zeros(Bool,n[1]+4,n[2]+4,n[3]+4); # the +4 is actually only for HO. For FO 2 is enough but need to change access to Done in helpFuncs
-
 Done = mem.Done;
 Done[:] = false;
 
@@ -94,7 +88,6 @@ while frontHeap.size > 0
 					# @inbounds if abs(T_k*T0loc-curr_val[1]) > monoThresh
 						# println("Monotonicity not fulfilled by ",(T_k*T0loc-curr_val),", not corrected.");
 					# end
-					# @inbounds T_k = curr_val[1] / T0loc;
 				# end
 				# time2 += toq();
 				# tic();

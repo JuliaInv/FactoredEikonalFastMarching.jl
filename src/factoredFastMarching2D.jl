@@ -89,9 +89,8 @@ while frontHeap.size > 0
 				
 				# @inbounds if T_k*T0loc < curr_val[1]
 					# @inbounds if abs(T_k*T0loc-curr_val[1]) > monoThresh
-						# println("Monotonicity not fulfilled by ",(T_k*T0loc-curr_val)," - not corrected.");
+						 # println("Monotonicity not fulfilled by ",(T_k*T0loc-curr_val)," - not corrected. HO = ",HO);
 					# end
-					# # T_k = curr_val[1] / T0loc;
 				# end
 				# time2 += toq();
 				# tic();
