@@ -13,7 +13,10 @@ Msh = getRegularMesh(Omega,n-1);
 
 (kappaSquared,src,T_exact) = getAnalyticalConstGradInv2D(Msh.n+1,Msh.h);
 T0 = getAnalytic2DeikonalSolution(n,Msh.h,src)[1];
-doSensTest(kappaSquared,src,T_exact,Msh,T0);
+println("First order test");
+doSensTest(kappaSquared,src,T_exact,Msh,T0,false);
+println("Second order test");
+doSensTest(kappaSquared,src,T_exact,Msh,T0,true);
 ##########################################################
 println("########### 3D TEST SETTING ##############################");
 n = [64,64,32]
@@ -21,16 +24,19 @@ Omega = [0.0,1.0,0.0,1.0,0.0,0.5];
 Msh = getRegularMesh(Omega,n-1);
 (kappaSquared,src,T_exact) = getAnalyticalConstGradInv3D(Msh.n+1,Msh.h);
 T0 = getAnalytic3DeikonalSolution(n,Msh.h,src)[1];
-doSensTest(kappaSquared,src,T_exact,Msh,T0);
+println("First order test");
+doSensTest(kappaSquared,src,T_exact,Msh,T0,false);
+println("Second order test");
+doSensTest(kappaSquared,src,T_exact,Msh,T0,true);
+
 ##########################################################
 toc()
 return;
 end
 
 
-function doSensTest(kappaSquared,src,T_exact,Msh,T0)
+function doSensTest(kappaSquared,src,T_exact,Msh,T0,HO)
 n = Msh.n+1;
-HO = false;
 pMem = getEikonalTempMemory(n);
 pEik = getEikonalParam(Msh,kappaSquared,src,HO);
 solveFastMarchingUpwindGrad(pEik,pMem);
