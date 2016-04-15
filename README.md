@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/JuliaInv/FactoredEikonalFastMarching.jl.svg?branch=master)](https://travis-ci.org/JuliaInv/FactoredEikonalFastMarching.jl)
+[![Coverage Status](https://coveralls.io/repos/github/JuliaInv/FactoredEikonalFastMarching.jl/badge.svg?branch=master)](https://coveralls.io/github/JuliaInv/FactoredEikonalFastMarching.jl?branch=master)
+
 # FactoredEikonalFastMarching.jl
 Julia Package for solving the factored eikonal equation on a regular rectangular mesh using the fast marching algorithm.
 
