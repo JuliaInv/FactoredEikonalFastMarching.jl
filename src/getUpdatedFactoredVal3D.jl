@@ -20,40 +20,40 @@ T_loc = solvePiecewiseQuadratic(A1,B1,A2,B2,A3,B3,kappaSquaredLoc,OpLoc);
 
 if FactoredEikonalFastMarching.imposeMonotonicity
 	if (t1 > 0.0 && T_loc*T0loc < t1+1e-16)
-		# if OpLoc[1]==-1 || OpLoc[1]==1
-			# A1 = T0loc/h[1];
-			# B1 = t1/h[1];	
-		# else
-			# A1 = (3.0*T0loc)/(2.0*h[1]);
-			# B1 = (4.0*t1 - t1a)/(2.0*h[1]);
-		# end
-		A1 = 0.0;
-		B1 = 0.0;
-		OpLoc[1] = 0;
+		if OpLoc[1]==-1 || OpLoc[1]==1
+			A1 = T0loc/h[1];
+			B1 = t1/h[1];	
+		else
+			A1 = (3.0*T0loc)/(2.0*h[1]);
+			B1 = (4.0*t1 - t1a)/(2.0*h[1]);
+		end
+		# A1 = 0.0;
+		# B1 = 0.0;
+		# OpLoc[1] = 0;
 	end
 	if (t2 > 0.0 && T_loc*T0loc < t2+1e-16)
-		# if OpLoc[2]==-1 || OpLoc[2]==1
-			# A2 = T0loc/h[2];
-			# B2 = t2/h[2];
-		# else
-			# A2 = (3.0*T0loc)/(2.0*h[2]);
-			# B2 = (4.0*t2 - t2a)/(2.0*h[2]);
-		# end
-		A2 = 0.0;
-		B2 = 0.0;
-		OpLoc[2] = 0;
+		if OpLoc[2]==-1 || OpLoc[2]==1
+			A2 = T0loc/h[2];
+			B2 = t2/h[2];
+		else
+			A2 = (3.0*T0loc)/(2.0*h[2]);
+			B2 = (4.0*t2 - t2a)/(2.0*h[2]);
+		end
+		# A2 = 0.0;
+		# B2 = 0.0;
+		# OpLoc[2] = 0;
 	end
 	if (t3 > 0.0 && T_loc*T0loc < t3+1e-16)
-		# if OpLoc[3]==-1 || OpLoc[3]==1
-			# A3 = T0loc/h[3];
-			# B3 = t3/h[3];
-		# else
-			# A3 = (3.0*T0loc)/(2.0*h[3]);
-			# B3 = (4.0*t3 - t3a)/(2.0*h[3]);
-		# end
-		A3 = 0.0;
-		B3 = 0.0;
-		OpLoc[3] = 0;
+		if OpLoc[3]==-1 || OpLoc[3]==1
+			A3 = T0loc/h[3];
+			B3 = t3/h[3];
+		else
+			A3 = (3.0*T0loc)/(2.0*h[3]);
+			B3 = (4.0*t3 - t3a)/(2.0*h[3]);
+		end
+		#A3 = 0.0;
+		#B3 = 0.0;
+		#OpLoc[3] = 0;
 	end
 	T_loc = solvePiecewiseQuadratic(A1,B1,A2,B2,A3,B3,kappaSquaredLoc,OpLoc);
 end
