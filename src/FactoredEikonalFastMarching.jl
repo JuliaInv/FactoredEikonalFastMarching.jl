@@ -3,7 +3,6 @@ export EikonalParam
 export EikonalTempMemory
 export getEikonalParam,getEikonalTempMemory
 export solveFastMarchingUpwindGrad
-export clear!
 
 using jInv.Mesh
 
@@ -79,12 +78,13 @@ mem = EikonalTempMemory(zeros(Bool,tuple(n+4...)),zeros(Int64,N),zeros(Float64,N
 return mem;
 end
 
+import jInv.Utils.clear!
 function clear!(param::EikonalParam)
 param.kappaSquared = [];
 param.T1 = [];
 param.ordering = [];
 param.OP = [];
-return;
+return param;
 end
 
 function solveFastMarchingUpwindGrad(pEik::EikonalParam, mem::EikonalTempMemory)
