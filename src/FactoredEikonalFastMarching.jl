@@ -88,6 +88,10 @@ return param;
 end
 
 function solveFastMarchingUpwindGrad(pEik::EikonalParam, mem::EikonalTempMemory)
+if minimum(pEik.kappaSquared) < 1e-16
+	error("Fast Marching::kappaSquared is negative somewhere");
+end
+ 
 dim = pEik.Mesh.dim;
 if dim==3
 	factoredFastMarching3D(pEik,mem);
