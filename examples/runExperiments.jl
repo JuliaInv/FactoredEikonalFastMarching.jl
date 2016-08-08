@@ -1,13 +1,15 @@
 
 using jInv.Mesh;
 using FactoredEikonalFastMarching;
+using PyPlot
+close("all")
 
 include("runAccuracyExperiment.jl");
 include("getAnalyticalMediums.jl");
 include("getWorkUnit.jl");
 
 function runPaperExperiments()
-numOfRefinements = 5; 
+numOfRefinements = 4; 
 
 println("******************** 2D experiments ***************************");
 
