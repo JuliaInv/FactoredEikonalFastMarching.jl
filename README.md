@@ -27,5 +27,5 @@ Pkg.test("FactoredEikonalFastMarching")
 # Examples
 
 Under "examples/runExperiments.jl" you can find the experiments that were shown in the paper above. 
-
+Under "examples/simpleExample.jl" you can find how to set a simple travel time calculation.
 

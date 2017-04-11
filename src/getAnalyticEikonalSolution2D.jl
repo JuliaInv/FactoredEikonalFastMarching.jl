@@ -74,18 +74,19 @@ X1,X2 = ndgrid((0:(n[1]-1))*h[1] - source1,(0:(n[2]-1))*h[2] - source2);
 
 r = sqrt(X1.^2 + X2.^2);
 T = r;
-G2 = X2.*(1./r);
-G2[src[1],src[2]] = 1/sqrt(2);
-
-G1 = X1.*(1./r);
-G1[src[1],src[2]] = 1/sqrt(2);
-
-L= (1./r);
-
+L = 1./r;
 #Check that for h1=h2:
 # finite_vol_integral_for_inverse_r_over_square = 3.52;
 # L[src[1],src[2]] = (finite_vol_integral_for_inverse_r_over_square)/sqrt(h[1]*h[2]);
-L = 2*(h[1]*asinh(h[2]/h[1]) + h[2]*asinh(h[1]/h[2]))/(h[1]*h[2]);
+L[src[1],src[2]] = 0.5*(2*(h[1]*asinh(h[2]/h[1]) + h[2]*asinh(h[1]/h[2]))/(h[1]*h[2]));
+
+
+G2 = X2.*L;
+G2[src[1],src[2]] = 1/sqrt(2);
+
+G1 = X1.*L;
+G1[src[1],src[2]] = 1/sqrt(2);
+
 return T,G1,G2,L;
 end
 
