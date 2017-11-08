@@ -97,9 +97,9 @@ a  = 1.0;
 s0 = 2.0;
 
 Kappa = 1./(1./s0 + a*(X1-source1));
-T_exact = (1/a)*acosh(1+(0.5*s0*a*a).*Kappa.*((X1-source1).^2 + (X2-source2).^2));
-G2_exact = (1/a)*(1./sqrt((1+(0.5*s0*a*a).*Kappa.*((X1-source1).^2 + (X2-source2).^2)).^2 - 1)).*(0.5*s0*a*a).*Kappa.*2.*(X2-source2);
-G1_exact = (1/a)*(1./sqrt((1+(0.5*s0*a*a).*Kappa.*((X1-source1).^2 + (X2-source2).^2)).^2 - 1)).*((0.5*s0*a*a).*Kappa.*2.*(X1-source1) 
+T_exact = (1/a)*acosh.(1+(0.5*s0*a*a).*Kappa.*((X1-source1).^2 + (X2-source2).^2));
+G2_exact = (1/a)*(1./sqrt.((1+(0.5*s0*a*a).*Kappa.*((X1-source1).^2 + (X2-source2).^2)).^2 - 1)).*(0.5*s0*a*a).*Kappa.*2.*(X2-source2);
+G1_exact = (1/a)*(1./sqrt.((1+(0.5*s0*a*a).*Kappa.*((X1-source1).^2 + (X2-source2).^2)).^2 - 1)).*((0.5*s0*a*a).*Kappa.*2.*(X1-source1) 
 			+ (0.5*s0*a*a).*((X1-source1).^2 + (X2-source2).^2).*(-(Kappa.^2)).*a);
 kappaSquared = Kappa.^2;
 
@@ -122,10 +122,10 @@ a  = 1.0;
 s0 = 2.0;
 Kappa = 1./(1./s0 + a*(X3-source3));
 Rsquared = (X1-source1).^2 + (X2-source2).^2 + (X3-source3).^2;
-T_exact = (1/a)*acosh(1+(0.5*s0*a*a).*Kappa.*(Rsquared));
-G1_exact = (1/a)*(1./sqrt((1+(0.5*s0*a*a).*Kappa.*Rsquared).^2 - 1)).*(0.5*s0*a*a).*Kappa.*2.*(X1-source1);
-G2_exact = (1/a)*(1./sqrt((1+(0.5*s0*a*a).*Kappa.*Rsquared).^2 - 1)).*(0.5*s0*a*a).*Kappa.*2.*(X2-source2);
-G3_exact = (1/a)*(1./sqrt((1+(0.5*s0*a*a).*Kappa.*Rsquared).^2 - 1)).*((0.5*s0*a*a).*Kappa.*2.*(X3-source3) 
+T_exact = (1/a)*acosh.(1+(0.5*s0*a*a).*Kappa.*(Rsquared));
+G1_exact = (1/a)*(1./sqrt.((1+(0.5*s0*a*a).*Kappa.*Rsquared).^2 - 1)).*(0.5*s0*a*a).*Kappa.*2.*(X1-source1);
+G2_exact = (1/a)*(1./sqrt.((1+(0.5*s0*a*a).*Kappa.*Rsquared).^2 - 1)).*(0.5*s0*a*a).*Kappa.*2.*(X2-source2);
+G3_exact = (1/a)*(1./sqrt.((1+(0.5*s0*a*a).*Kappa.*Rsquared).^2 - 1)).*((0.5*s0*a*a).*Kappa.*2.*(X3-source3) 
 			+ (0.5*s0*a*a).*(Rsquared).*(-(Kappa.^2)).*a);
 kappaSquared = Kappa.^2;
 

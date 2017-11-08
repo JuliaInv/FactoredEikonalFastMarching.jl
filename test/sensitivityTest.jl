@@ -41,7 +41,7 @@ pMem = getEikonalTempMemory(n);
 pEik = getEikonalParam(Msh,kappaSquared,src,HO);
 solveFastMarchingUpwindGrad(pEik,pMem);
 T = T0[:].*pEik.T1[:];
-println("Maximum error norm: ",maximum(abs((T_exact[:] - T))));
+println("Maximum error norm: ",maximum(abs.((T_exact[:] - T))));
 println("Sensitivity Check:");
 delta_kappa = 0.05*randn(size(kappaSquared))*mean(kappaSquared[:]);
 Tlin = zeros(prod(n));
