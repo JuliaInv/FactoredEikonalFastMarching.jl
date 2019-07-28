@@ -15,7 +15,8 @@ before_install:
    - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
 
 script:
-  - julia --check-bounds=yes -e 'using Pkg; Pkg.clone(pwd()); Pkg.build(); Pkg.test("FactoredEikonalFastMarching";coverage=true)'
+  
 
 after_success:
-  - julia -e 'using Pkg; cd(Pkg.dir("FactoredEikonalFastMarching")); Pkg.add("Coverage"); using Coverage; Coveralls.submit(Coveralls.process_folder())'
+  - julia --check-bounds=yes --color=yes -e 'using Pkg; Pkg.test(coverage=true);'
+  #- julia -e 'using Pkg; cd(Pkg.dir("FactoredEikonalFastMarching")); Pkg.add("Coverage"); using Coverage; Coveralls.submit(Coveralls.process_folder())'
