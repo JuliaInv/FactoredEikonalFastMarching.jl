@@ -1,18 +1,16 @@
-using Base.Test
+using Test
+using LinearAlgebra
+using jInv.Mesh;
+using FactoredEikonalFastMarching;
+using Statistics
 
-allPassed = true
-try 
-	include("sensitivityTest.jl");
-catch
-	allPassed = false
-	warn("including sensitivityTest.jl failed.")
+include("../examples/getAnalyticalMediums.jl");
+include("sensitivityTest.jl");
+include("../examples/getAnalyticalMediums.jl");
+
+
+@testset "Sensitivity test" begin
+	runSensitivityTest2D(); 
+	runSensitivityTest3D();
+	include("../examples/runExperiments.jl")
 end
-
-try 
-	runSensitivityTest();
-catch
-	allPassed = false
-	warn("runSensitivityTest() had test errors")
-end
-
-@test allPassed == true

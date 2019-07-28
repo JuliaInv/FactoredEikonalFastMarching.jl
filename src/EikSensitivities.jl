@@ -19,7 +19,7 @@ end
 function getSensMatVecEik(b::Array{Float64,1},res::Array{Float64,1},pEik::EikonalParam)
 # This is basically a lower triangular solution.
 	order = pEik.ordering;
-	n = pEik.Mesh.n+1;
+	n = pEik.Mesh.n.+1;
 	if pEik.Mesh.dim==2
 		rowLength = 5;
 		if pEik.HO 
@@ -40,7 +40,7 @@ function getSensMatVecEik(b::Array{Float64,1},res::Array{Float64,1},pEik::Eikona
 	colIdxs = zeros(Int64,rowLength);
 	vals 	= zeros(Float64,rowLength);
 	############ Invert a lower triangular Matrix ##########################
-	res[:] = 0.0;
+	res[:] .= 0.0;
 	for j=order
 		r = b[j];
 		rowLength_j = getRowOfSensitivity(pEik,j,vals,colIdxs,srcCS,offset,G0,Idxs,n);
@@ -62,7 +62,7 @@ end
 function getSensTMatVecEik(b::Array{Float64,1},res::Array{Float64,1},pEik::EikonalParam)
 # This is basically an upper triangular solution. This function ruins b.
 	order = pEik.ordering;
-	n = pEik.Mesh.n+1;	
+	n = pEik.Mesh.n.+1;	
 	if pEik.Mesh.dim==2
 		rowLength = 5;
 		if pEik.HO 

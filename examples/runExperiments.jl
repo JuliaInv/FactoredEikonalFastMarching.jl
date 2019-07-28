@@ -1,16 +1,21 @@
 
 using jInv.Mesh;
 using FactoredEikonalFastMarching;
-using PyPlot
-close("all")
+using Printf
+
+#using PyPlot
+#close("all")
 
 include("runAccuracyExperiment.jl");
 include("getAnalyticalMediums.jl");
 include("getWorkUnit.jl");
 
-function runPaperExperiments()
-numOfRefinements = 4; 
-
+"""
+A function for running the experiments in the paper: 
+Eran Treister and Eldad Haber, A fast marching algorithm for the factored eikonal equation, Journal of Computational Physics, 324, 210-225, 2016.
+To acctually run the experiments in the paper: increase numOfRefinements
+"""
+function runPaperExperiments(numOfRefinements)
 println("******************** 2D experiments ***************************");
 
 I = [4,8];
@@ -79,8 +84,6 @@ println("***********************************************************************
 I = [1.6,1.6,0.8];
 n = zeros(Int64,3);
 
-numOfRefinements = 4;
-
 h0 = [0.1,0.1,0.1];
 WU = zeros(numOfRefinements)
 for k = 1:numOfRefinements
@@ -128,4 +131,4 @@ return;
 end
 ############################################################################################
 
-runPaperExperiments();
+runPaperExperiments(2);

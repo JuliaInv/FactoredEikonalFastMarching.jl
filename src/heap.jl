@@ -1,4 +1,4 @@
-type minHeap
+mutable struct minHeap
     valArr::Array{Float64,1};
 	indArr::Array{Int64,1};
     size::Int64;
@@ -16,8 +16,8 @@ function initHeap(valArr::Array{Float64,1},indArr::Array{Int64,1})
 if length(valArr)!=length(indArr)
 	error("initHeap::unevenly lengthed arrays");
 end
-valArr[:] = 0.0;
-indArr[:] = 0;
+valArr[:] .= 0.0;
+indArr[:] .= 0;
 heap = minHeap(valArr,indArr,0,length(valArr));
 return heap;
 end

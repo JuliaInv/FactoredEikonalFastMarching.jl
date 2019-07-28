@@ -1,25 +1,25 @@
 function GetWorkunitForLoop(n::Array{Int64,1},h::Array{Float64,1})
-hinv = 1./h;
+hinv = 1.0./h;
 times = 20;
 t_wu = 0.0;
 if length(n)==2
 	t = ones(n[1]+2,n[2]+2);
 	z = zeros(n[1]+2,n[2]+2);
-	tic()
+	tt = time_ns();
 	for k=1:times
 		for j = 1:n[2]
 			for i = 1:n[1]
 				i_t = i+1;
 				j_t = j+1;
-				z[i,j] = ((0.5*hinv[1]*(t[i_t+1,j_t] - t[i_t-1,j_t]))^2 + (0.5*hinv[2]*(t[i_t,j_t+1] - t[i_t,j_t-1]))^2 );
+				@inbounds z[i,j] = ((0.5*hinv[1]*(t[i_t+1,j_t] - t[i_t-1,j_t]))^2 + (0.5*hinv[2]*(t[i_t,j_t+1] - t[i_t,j_t-1]))^2 );
 			end
 		end
 	end
-	t_wu = toq();
+	t_wu = (time_ns() - tt) / (10^9);
 elseif length(n)==3
 	t = ones(n[1]+2,n[2]+2,n[3]+2);
 	z = zeros(n[1]+2,n[2]+2,n[3]+2);
-	tic()
+	tt = time_ns();
 	for k=1:times
 		for k = 1:n[3]
 			for j = 1:n[2]
@@ -27,12 +27,12 @@ elseif length(n)==3
 					i_t = i+1;
 					j_t = j+1;
 					k_t = k+1;
-					z[i,j,k] = ((0.5*hinv[1]*(t[i_t+1,j_t,k_t] - t[i_t-1,j_t,k_t]))^2 + (0.5*hinv[2]*(t[i_t,j_t+1,k_t] - t[i_t,j_t-1,k_t]))^2 + (0.5*hinv[3]*(t[i_t,j_t,k_t+1] - t[i_t,j_t,k_t-1]))^2);
+					@inbounds z[i,j,k] = ((0.5*hinv[1]*(t[i_t+1,j_t,k_t] - t[i_t-1,j_t,k_t]))^2 + (0.5*hinv[2]*(t[i_t,j_t+1,k_t] - t[i_t,j_t-1,k_t]))^2 + (0.5*hinv[3]*(t[i_t,j_t,k_t+1] - t[i_t,j_t,k_t-1]))^2);
 				end
 			end
 		end
 	end
-	t_wu = toq();
+	t_wu = (time_ns() - tt) / (10^9);
 else
 	error("unkonwn dimention");
 end

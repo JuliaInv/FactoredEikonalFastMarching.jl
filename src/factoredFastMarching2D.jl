@@ -7,7 +7,7 @@ function factoredFastMarching(pEik::EikonalParam, mem::EikonalTempMemory)
 kappaSquared 	= pEik.kappaSquared;
 h 				= pEik.Mesh.h;
 src 			= pEik.src;
-n 				= pEik.Mesh.n+1;
+n 				= pEik.Mesh.n.+1;
 HO 				= pEik.HO;
 
 if isempty(pEik.T1)
@@ -22,13 +22,13 @@ if isempty(pEik.OP)
 	pEik.OP = zeros(Int8,tuple(n...));
 end
 OP       = pEik.OP;
-OP[:] 	 = 0;
+OP[:] 	 .= 0;
 
 
 
-T[:] = Inf;
+T[:] .= Inf;
 Done = mem.Done;
-Done[:] = false;
+Done[:] .= false;
 
 heapArr = mem.V;
 heapIdx = mem.J;
@@ -58,7 +58,7 @@ B = zeros(Float64,2);
 OpLoc = zeros(Int8,2);
 curr_val = zeros(Float64,1);
 
-hinv = 1./h;
+hinv = 1.0./h;
 
 while frontHeap.size > 0
 	# tic();

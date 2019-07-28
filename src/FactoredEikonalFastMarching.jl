@@ -35,8 +35,7 @@ const imposeMonotonicity = false;
 
     Constructor: getEikonalParam
 """
-
-type EikonalParam
+mutable struct EikonalParam
     Mesh        :: RegularMesh # Mesh
 	kappaSquared:: Array{Float64} # Squared slowness model
 	src         :: Array{Int64,1}
@@ -48,14 +47,13 @@ end
 
 
 """
-type EikonalTempMemory
+mutable struct EikonalTempMemory
 This struct is used for having a reusable memory allocation for consecutive runs of eikonal solves.
 Done:: An array of booleans for knowing which variables are known.
 J	:: An array of indices for the heap.
 V   :: An array of values for the heap.
 """
-
-type EikonalTempMemory
+mutable struct EikonalTempMemory
 	Done		:: Array{Bool};
 	J  			:: Array{Int64,1};
 	V			:: Array{Float64,1};
@@ -63,7 +61,7 @@ end
 
 
 function getEikonalParam(Mesh:: RegularMesh,kappaSquared::Array{Float64},src:: Array{Int64,1},HO:: Bool)
-	if prod(Mesh.n+1) > (2^31-1)
+	if prod(Mesh.n.+1) > (2^31-1)
 		error("Eikonal is using Int32 for storing the sensitivities and N is too large. Change to EikIdxType in Eikoonal.jl to Int64");
 	end
 	pEik = EikonalParam(Mesh,kappaSquared,src,HO,[],[],[]);
@@ -74,7 +72,7 @@ function getEikonalTempMemory(n::Array{Int64,1})
 ntup = tuple(n...);
 dim = length(n);
 N = prod(n);
-mem = EikonalTempMemory(zeros(Bool,tuple(n+4...)),zeros(Int64,N),zeros(Float64,N));
+mem = EikonalTempMemory(zeros(Bool,tuple(n.+4...)),zeros(Int64,N),zeros(Float64,N));
 return mem;
 end
 

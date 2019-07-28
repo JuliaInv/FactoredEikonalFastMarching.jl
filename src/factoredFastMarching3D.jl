@@ -3,7 +3,7 @@ function factoredFastMarching3D(pEik::EikonalParam, mem::EikonalTempMemory)
 kappaSquared 	= pEik.kappaSquared;
 h 				= pEik.Mesh.h;
 src 			= pEik.src;
-n 				= pEik.Mesh.n+1;
+n 				= pEik.Mesh.n.+1;
 HO 				= pEik.HO;
 
 N = prod(n);
@@ -21,11 +21,11 @@ if isempty(pEik.OP)
 	pEik.OP = zeros(Int8,tuple(n...));
 end
 OP       = pEik.OP;
-OP[:] 	 = 0;
+OP[:] 	 .= 0;
 
 
 Done = mem.Done;
-Done[:] = false;
+Done[:] .= false;
 
 heapArr = mem.V;
 heapIdx = mem.J;
@@ -36,9 +36,9 @@ frontHeap = initHeap(heapArr,heapIdx);
 # time3 = 0.0;
 
 monoThresh = max(h[1],h[2],h[3])^2;
-T[:] = Inf;
+T[:] .= Inf;
 
-hinv = 1./h;
+hinv = 1.0./h;
 src_cs = loc2cs3D(src,n);
 
 kappaSrc = sqrt(kappaSquared[src_cs]);

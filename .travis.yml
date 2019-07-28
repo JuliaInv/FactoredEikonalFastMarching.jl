@@ -5,18 +5,17 @@ os:
   - linux
 
 julia:
-  - 0.6
-  - release
+  - 0.7
+  - 1.0
   
 notifications:
   email: false
  
 before_install:
-   - julia -e 'Pkg.clone("https://github.com/JuliaInv/jInv.jl","jInv"); Pkg.build("jInv");'
    - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
 
 script:
-  - julia --check-bounds=yes -e 'Pkg.clone(pwd()); Pkg.build("FactoredEikonalFastMarching"); Pkg.test("FactoredEikonalFastMarching"; coverage=true)'
+  - julia --check-bounds=yes -e 'using Pkg; Pkg.clone(pwd()); Pkg.build(); Pkg.test("FactoredEikonalFastMarching";coverage=true)'
 
 after_success:
-  - julia -e 'cd(Pkg.dir("FactoredEikonalFastMarching")); Pkg.add("Coverage"); using Coverage; Coveralls.submit(Coveralls.process_folder())'
+  - julia -e 'using Pkg; cd(Pkg.dir("FactoredEikonalFastMarching")); Pkg.add("Coverage"); using Coverage; Coveralls.submit(Coveralls.process_folder())'

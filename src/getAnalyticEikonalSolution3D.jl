@@ -42,7 +42,7 @@ end
 
 
 function T03D(n::Array{Int64,1},h::Array{Float64,1},src::Array{Int64,1},loc1::Int64,loc2::Int64,loc3::Int64)
-return sqrt(((loc1 - src[1])*h[1])^2 + ((loc2 - src[2])*h[2])^2 + ((loc3 - src[3])*h[3])^2);
+return sqrt.(((loc1 .- src[1])*h[1])^2 .+ ((loc2 .- src[2])*h[2])^2 .+ ((loc3 .- src[3])*h[3])^2);
 end
 
 function analyticLocal3D(h::Array{Float64,1},src::Array{Int64,1},loc1::Int64,loc2::Int64,loc3::Int64)
@@ -50,8 +50,8 @@ G01loc = (loc1 - src[1])*h[1];
 G02loc = (loc2 - src[2])*h[2];
 G03loc = (loc3 - src[3])*h[3];
 
-T0loc = sqrt(G01loc*G01loc + G02loc*G02loc + G03loc*G03loc);
-invt0 = 1/T0loc;
+T0loc = sqrt.(G01loc*G01loc + G02loc*G02loc + G03loc*G03loc);
+invt0 = 1.0./T0loc;
 G01loc *= invt0;
 G02loc *= invt0;
 G03loc *= invt0;
@@ -63,8 +63,8 @@ G01loc = (loc1 - src[1])*h[1];
 G02loc = (loc2 - src[2])*h[2];
 G03loc = (loc3 - src[3])*h[3];
 
-T0loc = sqrt(G01loc*G01loc + G02loc*G02loc + G03loc*G03loc);
-invt0 = 1/T0loc;
+T0loc = sqrt.(G01loc*G01loc + G02loc*G02loc + G03loc*G03loc);
+invt0 = 1.0./T0loc;
 G01loc *= invt0;
 G02loc *= invt0;
 G03loc *= invt0;
@@ -81,19 +81,19 @@ source1 = (src[1]-1)*h[1];
 source2 = (src[2]-1)*h[2];
 source3 = (src[3]-1)*h[3];
 
-X1,X2,X3 = ndgrid((0:(n[1]-1))*h[1] - source1,(0:(n[2]-1))*h[2] - source2,(0:(n[3]-1))*h[3] - source3);
+X1,X2,X3 = ndgrid((0:(n[1]-1))*h[1] .- source1,(0:(n[2]-1))*h[2] .- source2,(0:(n[3]-1))*h[3] .- source3);
 
-r = sqrt(X1.^2 + X2.^2 + X3.^2);
+r = sqrt.(X1.^2 .+ X2.^2 .+ X3.^2);
 T = r;
-L = 1./r;
+L = 1.0./r;
 G2 = X2.*L;
-G2[src[1],src[2],src[3]] = 1/sqrt(3);
+G2[src[1],src[2],src[3]] = 1.0./sqrt(3);
 
 G1 = X1.*L;
-G1[src[1],src[2],src[3]] = 1/sqrt(3);
+G1[src[1],src[2],src[3]] = 1.0./sqrt(3);
 
 G3 = X3.*L;
-G3[src[1],src[2],src[3]] = 1/sqrt(3);
+G3[src[1],src[2],src[3]] = 1.0./sqrt(3);
 
 L[src[1],src[2],src[3]] = getL0AtSrc3D(h);
 
@@ -152,11 +152,11 @@ function getL0AtSrc3D(h)
 # println(F);
 
 n_num = 200;
-x2_num = -h[2]/2+h[2]/(2*n_num):h[2]/n_num:h[2]/2-h[2]/(2*n_num);
-x3_num = -h[3]/2+h[3]/(2*n_num):h[3]/n_num:h[3]/2-h[3]/(2*n_num);
+x2_num = -h[2]/2.0+h[2]/(2*n_num):h[2]/n_num:h[2]/2.0-h[2]/(2*n_num);
+x3_num = -h[3]/2.0+h[3]/(2*n_num):h[3]/n_num:h[3]/2.0-h[3]/(2*n_num);
 
 X2sq,X3sq = ndgrid(x2_num.^2,x3_num.^2);
-F = 2.0*sum(asinh((0.5*h[1])./sqrt(X2sq+X3sq)));
+F = 2.0*sum(asinh((0.5*h[1])./sqrt.(X2sq+X3sq)));
 # F = 0.0;
 # for ii = 1:n_num
 	# for jj = 1:n_num
@@ -165,7 +165,7 @@ F = 2.0*sum(asinh((0.5*h[1])./sqrt(X2sq+X3sq)));
 # end
 size_numerical_box = (h[2]*h[3])/(n_num*n_num)
 F *= size_numerical_box;
-F *= 3*(1/prod(h)); # finite volume definition for the cell.
+F *= 3*(1.0./prod(h)); # finite volume definition for the cell.
 # println(F)
 
 # F =  (2*h[1]*h[2] + 2*h[2]*h[3] + 2*h[1]*h[3])/(h[1]*h[2]*h[3]);

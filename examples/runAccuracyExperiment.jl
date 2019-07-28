@@ -1,7 +1,7 @@
 function runExperimentAndWriteResults(kappaSquared::Array{Float64},h::Array{Float64,1},src::Array{Int64,1},n::Array{Int64,1},T_exact::Array{Float64},WU::Float64 )
 Omega = zeros(2*length(n));
-Omega[2:2:end] = (n-1).*h;
-Mesh = getRegularMesh(Omega,n-1);
+Omega[2:2:end] = (n.-1).*h;
+Mesh = getRegularMesh(Omega,n.-1);
 ##########################################################
 
 # if length(n)==2
@@ -18,20 +18,20 @@ pEik = getEikonalParam(Mesh,kappaSquared,src,false);
 pEik.T1 = zeros(Float64,tuple(n...));
 
 tictimes = 1000000;
-times = div(tictimes,prod(n)) + 1;
+times = div(tictimes,prod(n)) .+ 1;
 println("Timing is based on averaged ",times," runs.");
-tic()
+tt = time_ns()
 for k=1:times
 	solveFastMarchingUpwindGrad(pEik,pMem);
 end
-t1 = toq();
+t1 = (time_ns() - tt)/(10^9)
 t1 = t1/times;
 
 
 if Mesh.dim==2
-	selfMultiplyWithAnalyticSolution2D(Mesh.n+1,Mesh.h,src,pEik.T1);
+	selfMultiplyWithAnalyticSolution2D(Mesh.n.+1,Mesh.h,src,pEik.T1);
 else
-	selfMultiplyWithAnalyticSolution3D(Mesh.n+1,Mesh.h,src,pEik.T1)
+	selfMultiplyWithAnalyticSolution3D(Mesh.n.+1,Mesh.h,src,pEik.T1)
 end
 
 
@@ -39,20 +39,20 @@ end
 T1 = copy(pEik.T1)
 
 pEik.HO = true;
-ERR1 = T_exact - pEik.T1;
+ERR1 = T_exact .- pEik.T1;
 
-tic()
+tt = time_ns()
 for k=1:times	
 	solveFastMarchingUpwindGrad(pEik,pMem);
 end
-t2 = toq()
+t2 = (time_ns() - tt)/(10^9)
 t2 = t2/times;
 
 
 if Mesh.dim==2
-	selfMultiplyWithAnalyticSolution2D(Mesh.n+1,Mesh.h,src,pEik.T1);
+	selfMultiplyWithAnalyticSolution2D(Mesh.n.+1,Mesh.h,src,pEik.T1);
 else
-	selfMultiplyWithAnalyticSolution3D(Mesh.n+1,Mesh.h,src,pEik.T1)
+	selfMultiplyWithAnalyticSolution3D(Mesh.n.+1,Mesh.h,src,pEik.T1)
 end
 
 
@@ -61,9 +61,9 @@ T2 = copy(pEik.T1)
 
 ERR2 = T_exact - pEik.T1;
 
-@printf("[%3.4f,%3.4f]\t[%d,%d]\t[%3.2e,%3.2e]\t%3.2fs(%3.2f)\t",h[1],h[2],n[1],n[2],vecnorm(ERR1,Inf),vecnorm(ERR1,2)/sqrtN,t1,t1/WU);
+@printf("[%3.4f,%3.4f]\t[%d,%d]\t[%3.2e,%3.2e]\t%3.2fs(%3.2f)\t",h[1],h[2],n[1],n[2],norm(ERR1,Inf),norm(ERR1,2)/sqrtN,t1,t1/WU);
 
-@printf("[%3.2e,%3.2e]\t%3.2fs(%3.2f)\n",vecnorm(ERR2,Inf),vecnorm(ERR2,2)/sqrtN,t2,t2/WU);
+@printf("[%3.2e,%3.2e]\t%3.2fs(%3.2f)\n",norm(ERR2,Inf),norm(ERR2,2)/sqrtN,t2,t2/WU);
 
 # if length(n)==2
 	# figure()
