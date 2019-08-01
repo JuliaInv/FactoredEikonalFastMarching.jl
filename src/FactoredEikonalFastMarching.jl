@@ -108,6 +108,7 @@ include("getUpdatedFactoredVal2D.jl");
 include("getUpdatedFactoredVal3D.jl");
 include("getAnalyticEikonalSolution2D.jl");
 include("getAnalyticEikonalSolution3D.jl");
+include("getAnalyticalMediums.jl")
 include("EikSensitivities.jl");
 
 end

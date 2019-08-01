@@ -7,7 +7,6 @@ using Printf
 #close("all")
 
 include("runAccuracyExperiment.jl");
-include("getAnalyticalMediums.jl");
 include("getWorkUnit.jl");
 
 """
